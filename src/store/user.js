@@ -16,7 +16,7 @@ const user = {
     },
   },
   actions: {
-    async Login(context, payload) {
+    async Login() {
       const result = await axios({
         url: baseUrl + "login/cukai",
         method: "POST",
