@@ -1,22 +1,21 @@
 <template>
-  <div class="it-inventory-card">
-    <v-card-title class="it-inventory-card-title"
-      >Approval Request</v-card-title
-    >
+  <div>
+    <div class="it-inventory-card">
+      <v-card-title class="it-inventory-card-title"
+        >Approval Request</v-card-title
+      >
+      <v-row no-gutters>
+        <v-col class="py-2 px-0" cols="12">
+          <div class="it-inventory-box">
+            <table-approval-request />
+          </div>
+        </v-col>
+      </v-row>
+    </div>
 
-    <v-row no-gutters class="pt-4">
-      <v-col class="px-0" cols="12" lg="6" sm="12">
-        <v-select
-          clearable
-          class="filter_lists_merah"
-          v-model="filterType"
-          outlined
-          dense
-          :items="filterListsJalurMerah"
-        />
-      </v-col>
-    </v-row>
-    <lists-inventory-merah />
+    <div class="it-inventory-card my-6">
+      <table-reports />
+    </div>
   </div>
 </template>
 
@@ -24,20 +23,12 @@
 export default {
   name: "Home",
   components: {
-    // DisplayCount: () => import("@/components/dashboard/DisplayCount"),
-    ListsInventoryMerah: () =>
-      import("@/components/dashboard/ListsInventoryMerah"),
+    TableApprovalRequest: () =>
+      import("@/components/dashboard/TableApprovalRequest"),
+    TableReports: () => import("@/components/dashboard/TableReports"),
   },
   data() {
-    return {
-      lists: [
-        { export: 450, import: 250, status: "hijau" },
-        { export: 320, import: 275, status: "kuning" },
-        { export: 140, import: 50, status: "merah" },
-      ],
-      filterListsJalurMerah: ["Import", "Export", "All"],
-      filterType: "All",
-    };
+    return {};
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <div class="preview-card">
     <!-- Judul -->
     <div id="nomor-dokumen">
-      <h1 class="preview-title">Inventory #{{ "1024" }}</h1>
+      <h1 class="preview-title">Inventory #{{ preview.id }}</h1>
       <v-divider class="preview-divider"></v-divider>
     </div>
     <!-- End Judul -->
@@ -18,33 +18,33 @@
           <v-col cols="4">
             <div class="preview-text__field">
               <div>Pengajuan Sebagai</div>
-              <span>{{ "Importir" }}</span>
+              <span>{{ preview.pengajuanSebagai }}</span>
             </div>
             <div class="preview-text__field">
               <div>Diajukan Dikantor</div>
-              <span>{{ "Kantor Pabean Cukai" }}</span>
+              <span>{{ preview.kantorPengajuan }}</span>
             </div>
             <div class="preview-text__field">
               <div>Kode Dokumen</div>
-              <span>{{ "1232132" }}</span>
+              <span>{{ preview.ListDokumens[0].kodeDokumen }}</span>
             </div>
             <div class="preview-text__field">
               <div>Nomor Dokumen</div>
-              <span>{{ "123123213" }}</span>
+              <span>{{ preview.ListDokumens[0].nomorDokumen }}</span>
             </div>
           </v-col>
           <v-col cols="4">
             <div class="preview-text__field">
               <div>Jenis Pemberitahuan</div>
-              <span>{{ "Import" }}</span>
+              <span>{{ preview.jenisPemberitahuan }}</span>
             </div>
             <div class="preview-text__field">
               <div>Jenis Dokumen BC</div>
-              <span>{{ "BC 4.2" }}</span>
+              <span>{{ preview.BCDocumentType }}</span>
             </div>
             <div class="preview-text__field">
               <div>Tanggal Dokumen</div>
-              <span>{{ "11/02/2021" }}</span>
+              <span>{{ preview.ListDokumens[0].tanggalDokumen }}</span>
             </div>
           </v-col>
           <v-col cols="4"></v-col>
@@ -65,49 +65,55 @@
           <v-col cols="4">
             <div class="preview-text__field">
               <div>Kantor Pabean Asal</div>
-              <span>{{ "Kantor Pabean" }}</span>
+              <span>{{ preview.DataPengajuan.kantorPabeanAsal }}</span>
             </div>
             <div class="preview-text__field">
               <div>Kategori Pemberitahuan</div>
-              <span>{{ "Biasa" }}</span>
+              <span>{{ preview.DataPengajuan.kategoryPemberitahuan }}</span>
             </div>
             <div class="preview-text__field">
               <div>Pengirim</div>
-              <span>{{ "Nama Pengirim" }}</span>
+              <span>{{ preview.IdentitasPengirim.namaPengirim }}</span>
               <span
                 >{{ "NPWP" }} -
-                {{ "Nomor NPWP" }}
+                {{ preview.IdentitasPengirim.nomorIdentitasPengirim }}
               </span>
-              <span>{{ "Alamat Pengirim" }}</span>
-              <span>{{ "Nomor Identitas Pengirim" }}</span>
-              <span class="preview-text__field-date">{{ "20/01/2021" }}</span>
+              <span>{{ preview.IdentitasPengirim.alamatPengirim }}</span>
+              <span>{{ preview.IdentitasPengirim.nomorIjinBpkPengirim }}</span>
+              <span class="preview-text__field-date">{{
+                preview.IdentitasPengirim.tanggalIjinBpkPengirim
+              }}</span>
             </div>
           </v-col>
           <v-col cols="4">
             <div class="preview-text__field">
               <div>Kantor Pengeluaran Biasa</div>
-              <span>{{ "Pengeluaran Biasa" }}</span>
+              <span>{{ preview.DataPengajuan.kategoryPengeluaran }}</span>
             </div>
             <div class="preview-text__field">
               <div>Tujuan Pengeluaran</div>
-              <span>{{ "Lainnya" }}</span>
+              <span>{{ preview.DataPengajuan.tujuanPengeluaran }}</span>
             </div>
             <div class="preview-text__field">
               <div>Penerima</div>
-              <span>{{ "Nama Penerima" }}</span>
-              <span>{{ "NPWP" }} - {{ "nomor npwp" }}</span>
-              <span>{{ "Alamat Penerima" }}</span>
-              <span class="preview-text__field-date">{{ "20/01/2021" }}</span>
+              <span>{{ preview.reportIdentitasPenerima.namaPenerima }}</span>
+              <span
+                >{{ "NPWP" }} -
+                {{
+                  preview.reportIdentitasPenerima.nomorIdentitasPenerima
+                }}</span
+              >
+              <span>{{ preview.reportIdentitasPenerima.alamatPenerima }}</span>
             </div>
           </v-col>
           <v-col cols="4">
             <div class="preview-text__field">
               <div>Asal Barang</div>
-              <span>{{ "Batam" }}</span>
+              <span>{{ preview.DataPengajuan.asalBarang }}</span>
             </div>
             <div class="preview-text__field">
               <div>Cara Pembayaran</div>
-              <span>{{ "Lainnya" }}</span>
+              <span>{{ preview.DataPengajuan.caraPembayaran }}</span>
             </div>
           </v-col>
         </v-row>
@@ -118,7 +124,7 @@
             <div class="preview-box">
               <v-data-table
                 :headers="headers"
-                :items="dataTable"
+                :items="preview.listBarangs"
                 hide-default-footer
                 class="it-inventory-preview-table"
               ></v-data-table>
@@ -133,15 +139,19 @@
               <div class="preview-table__caption">Peti Kemas dan Pengemas</div>
               <tr>
                 <td>Jumlah Jenis Kemasan</td>
-                <td>10</td>
+                <td>
+                  {{ preview.DataPetiKemasDanPengema.jumlahJenisKemasan }}
+                </td>
               </tr>
               <tr>
                 <td>Jumlah Peti Kemas</td>
-                <td>30</td>
+                <td>{{ preview.DataPetiKemasDanPengema.jumlahPetiKemas }}</td>
               </tr>
               <tr>
                 <td>Jumlah Jenis Barang</td>
-                <td>50</td>
+                <td>
+                  {{ preview.DataPetiKemasDanPengema.jumlahJenisBarang }}
+                </td>
               </tr>
             </table>
           </v-col>
@@ -150,15 +160,15 @@
               <div class="preview-table__caption">Berat dan Volume</div>
               <tr>
                 <td>Berat Bersih Total (KGM)</td>
-                <td>12345.67</td>
+                <td>{{ preview.DataBeratDanVolume.beratBersih }}</td>
               </tr>
               <tr>
                 <td>Berat Kotor Total (KGM)</td>
-                <td>12345.67</td>
+                <td>{{ preview.DataBeratDanVolume.beratKotor }}</td>
               </tr>
               <tr>
                 <td>Volume (M3)</td>
-                <td>10</td>
+                <td>{{ preview.DataBeratDanVolume.volume }}</td>
               </tr>
             </table>
           </v-col>
@@ -169,7 +179,7 @@
               <div class="preview-table__caption">Data Lartas</div>
               <tr>
                 <td>Data Lartas Barang</td>
-                <td>repellendus</td>
+                <td>{{ preview.DataLarta.name }}</td>
               </tr>
             </table>
           </v-col>
@@ -178,7 +188,12 @@
               <div class="preview-table__caption">Data Perkiraan Tanggal</div>
               <tr>
                 <td>Perkiraan Tanggal Pengeluaran</td>
-                <td>12345.67</td>
+                <td>
+                  {{
+                    preview.DataPerkiraanTanggalPengeluaran
+                      .perkiraanTanggalPengeluaran
+                  }}
+                </td>
               </tr>
             </table>
           </v-col>
@@ -191,7 +206,7 @@
               <div class="preview-table__caption">Data Tempat Penimbunan</div>
               <tr>
                 <td>Tempat Penimbunan</td>
-                <td>Ipsa omnis unde</td>
+                <td>{{ preview.DataTempatPenimbunan.tempatPenimbunan }}</td>
               </tr>
             </table>
           </v-col>
@@ -202,15 +217,15 @@
               </div>
               <tr>
                 <td>Pelabuhan Muat</td>
-                <td>Ipsa omnis unde</td>
+                <td>{{ preview.DataPelabuhanMuatBongkar.pelabuhanMuat }}</td>
               </tr>
               <tr>
                 <td>Pelabuhan Tujuan</td>
-                <td>Ipsa omnis unde</td>
+                <td>{{ preview.DataPelabuhanMuatBongkar.pelabuhanTujuan }}</td>
               </tr>
               <tr>
                 <td>Pelabuhan Transit</td>
-                <td>Ipsa omnis unde</td>
+                <td>{{ preview.DataPelabuhanMuatBongkar.pelabuhanTransit }}</td>
               </tr>
             </table>
           </v-col>
@@ -223,19 +238,19 @@
               </div>
               <tr>
                 <td>Transaksi</td>
-                <td>enim doloremque desaurnt</td>
+                <td>{{ preview.TransaksiPerdagangan.transaksi }}</td>
               </tr>
               <tr>
                 <td>Valuta</td>
-                <td>USD - US Dollar</td>
+                <td>{{ preview.TransaksiPerdagangan.valuta }}</td>
               </tr>
               <tr>
                 <td>CIF</td>
-                <td>1232132132</td>
+                <td>{{ preview.TransaksiPerdagangan.cif }}</td>
               </tr>
               <tr>
                 <td>Freight</td>
-                <td>0</td>
+                <td>{{ preview.TransaksiPerdagangan.freight }}</td>
               </tr>
             </table>
           </v-col>
@@ -244,19 +259,19 @@
               <div class="preview-table__caption">&nbsp;</div>
               <tr>
                 <td>Transaksi Lainnya</td>
-                <td>enim doloremque desaurnt</td>
+                <td>{{ preview.TransaksiPerdagangan.transaksiLainnya }}</td>
               </tr>
               <tr>
                 <td>NDPBM Kurs</td>
-                <td>14302</td>
+                <td>{{ preview.TransaksiPerdagangan.kursNDPBM }}</td>
               </tr>
               <tr>
                 <td>Voluntary Declaration</td>
-                <td>Tidak</td>
+                <td>{{ preview.TransaksiPerdagangan.voluntaryDeclaration }}</td>
               </tr>
               <tr>
                 <td>Harga Penyerahan</td>
-                <td>12312312.23</td>
+                <td>{{ preview.TransaksiPerdagangan.hargaPenyerahan }}</td>
               </tr>
             </table>
           </v-col>
@@ -269,11 +284,11 @@
               </div>
               <tr>
                 <td>Cara Angkut</td>
-                <td>Laut</td>
+                <td>{{ preview.DataPengangkutan.caraAngkut }}</td>
               </tr>
               <tr>
                 <td>Nama Pengangkut</td>
-                <td>Eric</td>
+                <td>{{ preview.DataPengangkutan.namaPengangkut }}</td>
               </tr>
             </table>
           </v-col>
@@ -282,11 +297,11 @@
               <div class="preview-table__caption">&nbsp;</div>
               <tr>
                 <td>Bendera</td>
-                <td>Indonesia</td>
+                <td>{{ preview.DataPengangkutan.bendera }}</td>
               </tr>
               <tr>
                 <td>Nomor By Flight Pol</td>
-                <td>373820</td>
+                <td>{{ preview.DataPengangkutan.nomorVoyFlightPol }}</td>
               </tr>
             </table>
           </v-col>
@@ -305,7 +320,7 @@ export default {
       headers: [
         {
           text: "Post Tarif",
-          value: "postTarif",
+          value: "posTarif",
           sortable: false,
         },
         {
@@ -315,7 +330,7 @@ export default {
         },
         {
           text: "Neto, Bruto, Volume",
-          value: "netoBrutoVolume",
+          value: "nettoBrutoVolume",
           sortable: false,
         },
         {
@@ -334,8 +349,12 @@ export default {
           sortable: false,
         },
       ],
-      dataTable: [],
     };
+  },
+  computed: {
+    preview() {
+      return this.$store.state.report.preview;
+    },
   },
 };
 </script>

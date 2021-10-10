@@ -1,7 +1,14 @@
 <template>
   <div
     class="it-invent-badge-approval"
-    v-bind:style="{ backgroundColor: ColorLine }"
+    :style="{
+      backgroundColor:
+        status === 'hijau'
+          ? '#3CB774'
+          : status === 'merah'
+          ? '#DE3D33'
+          : '#F9B800',
+    }"
   ></div>
 </template>
 
@@ -10,20 +17,10 @@ export default {
   name: "ApprovalBadge",
   data() {
     return {
-      ColorLine: "#DE3D33",
+      ColorLine: "",
     };
   },
   props: ["status"],
-  watch: {},
-  created() {
-    if (this.status === "hijau") {
-      this.ColorLine = "#3CB774";
-    } else if (this.status === "kuning") {
-      this.ColorLine = "#F9B800";
-    } else {
-      this.ColorLine = "#DE3D33";
-    }
-  },
 };
 </script>
 

@@ -1,15 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "@/views/Dashboard";
-// import PLB from "@/views/PLB";
-// import PPFTZ from "@/views/PPFTZ";
-// import Setup from "@/views/Setup";
-// import CreateDocument from "@/views/plb_ppftz/CreateDocument";
-// import TableInventory from "@/views/plb_ppftz/TableInventory";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    redirect: { name: "Dashboard" },
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -55,6 +55,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
+    component: Login,
   },
 ];
 
