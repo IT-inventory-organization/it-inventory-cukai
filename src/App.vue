@@ -1,60 +1,52 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <div>
+    <v-app v-if="token">
+      <core-app-bar></core-app-bar>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-main>
+        <v-container fluid class="it-inventory-container">
+          <router-view />
+        </v-container>
+      </v-main>
+    </v-app>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+    <v-app v-if="!token">
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
+  name: "App",
   components: {
-    HelloWorld,
+    CoreAppBar: () => import("@/components/base/AppBar"),
   },
+  computed: {
+    token() {
+      return this.$store.state.user.token;
+    },
+  },
+  data() {
+    return {};
+  },
+  methods: {},
+  created() {
+    const token = localStorage.getItem("token_it_inventory");
+    if (!token) {
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push("/login");
+    }
 
-  data: () => ({
-    //
-  }),
+    if (token) {
+      this.$store.commit("SET_TOKEN", token);
+    }
+  },
 };
 </script>
+<style lang="scss">
+@import "./assets/styles/index.scss";
+@import "./assets/styles/card.scss";
+</style>
