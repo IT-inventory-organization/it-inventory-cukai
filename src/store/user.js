@@ -2,8 +2,9 @@ import axios from "axios";
 import { AESEncrypt } from "@/helper/Encryption.js";
 import Swal from "sweetalert2";
 import router from "@/router/";
+import config from "../config.json";
 
-const baseUrl = "http://192.168.100.32:3000";
+const baseUrl = config.baseURL;
 
 const user = {
   state: {
