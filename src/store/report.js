@@ -3,7 +3,7 @@ import { AESDecrypt } from "@/helper/Encryption.js";
 // import Swal from "sweetalert2";
 // import router from "@/router/";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://192.168.100.32:3000";
 // localhost:3000/report/update/updateStatus/:id
 const report = {
   state: {

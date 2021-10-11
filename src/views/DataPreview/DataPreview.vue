@@ -9,7 +9,7 @@
     </v-card-title>
     <v-card-text>
       <v-row no-gutters class="mt-2" align="center" justify="space-between">
-        <div class="title" style="color: black">Lang ILC</div>
+        <div class="title" style="color: black"></div>
         <div>
           <v-btn
             class="ma-2"
@@ -44,7 +44,7 @@
           rounded
           height="6"
         ></v-progress-linear>
-        <preview-dokumen v-if="!previewIsLoading" />
+        <preview-dokumen v-if="!previewIsLoading && preview !== null" />
       </div>
     </v-card-text>
   </v-card>
@@ -59,6 +59,9 @@ export default {
   computed: {
     previewIsLoading() {
       return this.$store.state.report.previewIsLoading;
+    },
+    preview() {
+      return this.$store.state.report.preview;
     },
   },
   methods: {
